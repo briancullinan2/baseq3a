@@ -88,6 +88,20 @@
 
 #endif
 
+//======================= Web Assembly DEFINES =================================
+
+// the mac compiler can't handle >32k of locals, so we
+// just waste space and make big arrays static...
+#ifdef __WASM__
+
+// bk001205 - from Makefile
+#define stricmp strcasecmp
+
+#define ID_INLINE inline 
+
+#define	PATH_SEP '/'
+
+#endif
 //======================= LINUX DEFINES =================================
 
 // the mac compiler can't handle >32k of locals, so we
