@@ -298,7 +298,7 @@ void *memmove( void *dest, const void *src, size_t count ) {
 }
 #endif
 
-#if 0
+#if __WASM__
 
 double floor( double x ) {
 	return (int)(x + 0x40000000) - 0x40000000;
