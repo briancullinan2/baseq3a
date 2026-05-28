@@ -509,6 +509,11 @@ double acos( double x ) {
 	return acostable[index];
 }
 
+#endif
+
+
+#if 0
+
 double atan2( double y, double x ) {
 	float	base;
 	float	temp;
