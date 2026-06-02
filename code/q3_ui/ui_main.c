@@ -108,7 +108,6 @@ void UI_RegisterCvars( void ) {
 
 	for ( i = 0, cv = cvarTable ; i < cvarTableSize ; i++, cv++ ) {
 		trap_Cvar_Register( cv->vmCvar, cv->cvarName, cv->defaultString, cv->cvarFlags );
-		Com_Printf( "Registered %s at %i\n", cv->cvarName, cv->vmCvar->handle );
 	}
 }
 
@@ -122,7 +121,6 @@ void UI_UpdateCvars( void ) {
 	cvarTable_t	*cv;
 
 	for ( i = 0, cv = cvarTable ; i < cvarTableSize ; i++, cv++ ) {
-		Com_Printf( "Updating %s at %i\n", cv->cvarName, cv->vmCvar->handle );
 		trap_Cvar_Update( cv->vmCvar );
 	}
 }
