@@ -1,0 +1,61 @@
+// ui/menus.txt
+// Master menu definition file for pure Classic Q3 translation using the TA Engine
+// Automatically parsed by the engine on ui_reload / UI_LoadMenus
+
+{
+    // ==========================================
+    // Initialization & Engine Defaults
+    // ==========================================
+    loadmenu { "ui/default.menu" }         // Global defaults, item styles, and fonts
+
+    // ==========================================
+    // Main Entry Points & Core States
+    // ==========================================
+    loadmenu { "ui/main.menu" }            // Replaces ui_main.c (The golden text rings & intro loop)
+    loadmenu { "ui/intro.menu" }           // Handles initial cin_intro playback or splash screens
+
+    // ==========================================
+    // Single Player Subsystem (ui_splevel.c, ui_sparena.c, ui_spskill.c)
+    // ==========================================
+    loadmenu { "ui/singleplayer.menu" }    // Tier selection screen matrix
+    loadmenu { "ui/spskill.menu" }         // Bot skill selection prompt overlay
+    loadmenu { "ui/sppostgame.menu" }      // Replaces ui_sppostgame.c (Victory/defeat metrics & tier completion)
+
+    // ==========================================
+    // Multiplayer & Network Subsystem (ui_servers2.c, ui_startserver.c)
+    // ==========================================
+    loadmenu { "ui/joinserver.menu" }      // Replaces ui_servers2.c (Server browser list & network queries)
+    loadmenu { "ui/createserver.menu" }    // Replaces ui_startserver.c (Host server config, match limits, map rotation)
+    loadmenu { "ui/serverinfo.menu" }      // Replaces ui_serverinfo.c (Detailed rules panel for selected server)
+    loadmenu { "ui/password.menu" }        // Replaces ui_specifyserver.c password prompt overlay
+
+    // ==========================================
+    // Setup & Configuration Subsystem (ui_setup.c, ui_video.c, ui_sound.c, ui_controls2.c)
+    // ==========================================
+    loadmenu { "ui/setup.menu" }           // Root profile setup menu
+    loadmenu { "ui/player.menu" }          // Replaces ui_playersettings.c & ui_playermodel.c (Model/Skin selector)
+    loadmenu { "ui/controls.menu" }        // Replaces ui_controls2.c (Keybinding matrix & mouse settings)
+    loadmenu { "ui/system.menu" }          // Replaces ui_video.c & ui_display.c (Resolution, driver, gl settings)
+    loadmenu { "ui/options.menu" }         // Replaces ui_sound.c & ui_preferences.c (Audio slider bars, crosshairs, game flags)
+    loadmenu { "ui/cdkey.menu" }           // Replaces ui_cdkey.c verification layout
+    loadmenu { "ui/mod.menu" }             // Replaces ui_mods.c (External game directory switcher)
+
+    // ==========================================
+    // In-Game Escape Subsystem (ui_ingame.c, ui_addbots.c)
+    // ==========================================
+    loadmenu { "ui/ingame.menu" }          // Replaces ui_ingame.c root background panel
+    loadmenu { "ui/ingame_main.menu" }     // Replaces ui_ingame.c action buttons (Resume, Restart, Leave)
+    loadmenu { "ui/ingame_options.menu" }  // Swift access configs during matches
+    loadmenu { "ui/ingame_addbot.menu" }   // Replaces ui_addbots.c selection list
+    loadmenu { "ui/ingame_removebot.menu" }// Replaces ui_removebots.c selection list
+    loadmenu { "ui/ingame_callvote.menu" } // Replaces ui_team.c / voting interfaces
+
+    // ==========================================
+    // Dialogs, Alerts & Metagame Panels
+    // ==========================================
+    loadmenu { "ui/connect.menu" }         // Replaces ui_connect.c (Loading bars, connection messages, media downloads)
+    loadmenu { "ui/error.menu" }           // Replaces ui_confirm.c error state outputs
+    loadmenu { "ui/quit.menu" }            // Exit confirmation modal layout
+    loadmenu { "ui/credit.menu" }          // Replaces ui_credits.c scrolling text / display end-slate
+    loadmenu { "ui/demo.menu" }            // Replaces ui_demo2.c local demo viewer dashboard
+}

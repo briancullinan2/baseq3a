@@ -1,0 +1,6 @@
+﻿// Minimum valid blank layout
+menuDef {
+    name "ingame_addbot"
+    rect 0 0 640 480
+    visible 0
+}

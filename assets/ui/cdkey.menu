@@ -1,0 +1,173 @@
+﻿#include "ui/menudef.h"
+
+{
+    assetGlobalDef {
+        font "fonts/font" 16                             // Main menu font
+        smallFont "fonts/smallfont" 12                   // Small informational font
+        bigFont "fonts/bigfont" 20                       // Accent titles
+        cursor "ui/assets/3_cursor3"                     // High-res interactive cursor
+        itemFocusSound "sound/misc/menu2.wav"            // Sound play on item focus
+
+        fadeClamp 1.0
+        fadeCycle 1
+        fadeAmount 0.1
+
+        shadowColor 0.1 0.1 0.1 0.25
+    }
+
+    menuDef {
+        name "cdkey_menu"
+        fullScreen MENU_TRUE                             // Matches C-code: cdkeyMenuInfo.menu.fullscreen = qtrue;
+        rect 0 0 640 480
+        visible MENU_TRUE
+        focusColor 1 1 0 1                               // Solid yellow text focus highlight
+
+        onOpen {
+            setcvar ui_cdkeychecked "1" ;                // From C code trap_Cvar_Set
+            uiScript getCDKey ;                          // Populates the key buffer
+        }
+
+        onESC { close cdkey_menu }
+
+        // ==========================================
+        // GRAPHICS & BACKGROUND ART
+        // ==========================================
+
+        // Classic Q3 Central Decorative Box Frame
+        itemDef {
+            name menu_frame
+            style WINDOW_STYLE_SHADER
+            rect 142 118 359 256                         // Precise dimensions from C-code Init
+            background "menu/art/cut_frame"
+            visible 1
+            decoration
+        }
+
+        // Header Text: "CD KEY"
+        itemDef {
+            name banner
+            text "CD KEY"
+            style 0
+            textstyle 6                                  // Drop-shadow text effect
+            rect 0 16 640 30                             // Center aligned at Y:16
+            forecolor 1 1 1 1                            // color_white
+            textscale .5
+            textalign 1                                  // UI_CENTER
+            textalignx 320
+            textaligny 24
+            visible 1
+            decoration
+        }
+
+        // ==========================================
+        // KEYBOARD EDITFIELD INPUT
+        // ==========================================
+
+        // Dark background listbar block for text entry visibility
+        itemDef {
+            name cdkey_bg
+            style WINDOW_STYLE_FILLED
+            rect 192 228 256 24                          // Perfectly centers behind the string input
+            backcolor 0 0 0 0.6                          // Matches vanilla listbar_color alpha tint
+            visible 1
+            decoration
+        }
+
+        // Single continuous 16-character vanilla Q3 data field
+        itemDef {
+            name cdkey_input
+            text "CD Key:"
+            type ITEM_TYPE_EDITFIELD
+            style 0
+            textstyle 6
+            cvar "cl_cdkey"                              // Binds entry string directly to native engine logic
+            maxchars 16
+            maxPaintChars 16
+            rect 160 228 288 24                          // Formatted position matching BIGCHAR dimensions
+            textalign 0                                  // UI_LEFT alignment
+            textalignx 10
+            textaligny 18
+            textscale .333
+            forecolor 1 0.5 0 1                          // Default unselected text: color_orange
+            visible 1
+            
+            // Text color interaction hooks based on focus state
+            mouseEnter { setitemcolor cdkey_input forecolor 1 1 0 1 } // color_yellow
+            mouseExit { setitemcolor cdkey_input forecolor 1 0.5 0 1 }  // color_orange
+        }
+
+        // Dynamic System Status Notice Output
+        itemDef {
+            name validation_notice
+            text "Please enter your CD Key"              // Default fallback fallback text
+            ownerdraw UI_CDKEYVALTEXT                     // Hooks text color directly to engine verification
+            style 0
+            textstyle 6
+            rect 0 376 640 20                            // Matches Y:376 calculation from C-code DrawKey
+            textscale .25
+            textalign 1                                  // UI_CENTER
+            textalignx 320
+            textaligny 12
+            forecolor 1 1 0 1                            // Default color_yellow
+            visible 1
+            decoration
+        }
+
+        // ==========================================
+        // MENU NAVIGATIONAL BUTTONS
+        // ==========================================
+
+        // --- ACCEPT/VERIFY BUTTON ---
+        itemDef {
+            name accept
+            style WINDOW_STYLE_SHADER
+            rect 512 416 128 64                          // Aligns directly against the right margin (640-128)
+            background "menu/art/accept_0"
+            visible 1
+            
+            mouseEnter { 
+                setitemcolor accept background "menu/art/accept_1" 
+            }
+            mouseExit { 
+                setitemcolor accept background "menu/art/accept_0" 
+            }
+            action { 
+                play "sound/misc/kcaction.wav" ; 
+                uiScript verifyCDKey ;                   // Tests validity, updates engine registry
+                close cdkey_menu ; 
+            }
+        }
+
+        // --- BACK BUTTON ---
+        itemDef {
+            name back
+            style WINDOW_STYLE_SHADER
+            rect 0 416 128 64                            // Aligns directly against the left margin (0)
+            background "menu/art/back_0"
+            visible 1
+            
+            mouseEnter { 
+                setitemcolor back background "menu/art/back_1" 
+            }
+            mouseExit { 
+                setitemcolor back background "menu/art/back_0" 
+            }
+            action { 
+                play "sound/misc/kcaction.wav" ; 
+                close cdkey_menu ; 
+            }
+        }
+
+        // Screen Initialisation Alpha Transition Shield
+        itemDef {
+            name fadebox                    
+            style WINDOW_STYLE_FILLED
+            background "ui/assets/fadebox.tga"
+            forecolor 0 0 0 1
+            backcolor 0 0 0 1
+            rect 0 0 640 480
+            visible 1 
+            decoration
+        }
+    }
+}
